@@ -4,6 +4,47 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.0.4 - 2024-06-30
+
+### Fixed
+
+- [#264](https://github.com/thatmattlove/hyperglass/issues/264): Fixed issue where IPv6 traceroutes fail on Juniper devices due to `traceroute: wait must be >1 sec.` error. Thanks @renatoornelas!
+- [#267](https://github.com/thatmattlove/hyperglass/issues/267): Fixed issue where responses were incorrectly cached, resulting in no data being shown in the AS Path viewer.
+- [#268](https://github.com/thatmattlove/hyperglass/issues/268): Fixed issue where some Mikrotik commands failed to execute properly.
+- [#269](https://github.com/thatmattlove/hyperglass/issues/269): Updated documentation regarding `structured.rpki.mode`.
+- Removed unnecessary logging statements which caused logging errors.
+- Fixed issue where validation of structured BGP route data may have failed under certain conditions.
+
+### Changed
+- Error responses are no longer cached.
+
+## 2.0.3 - 2024-06-16
+
+### Fixed
+
+- [#262](https://github.com/thatmattlove/hyperglass/issues/262): Fix issue where Mikrotik output was improperly parsed and displayed an error as a result.
+- Fixed issue where incorrect error styles were displayed.
+- Fixed issue where 'results' accordion component did not re-open when closed.
+- Fixed issue where pattern-based directive rules failed validation.
+
+### Changed
+
+- Set default logo width (back) to 50%, adjusted how the `web.logo.width` setting is handled in the UI.
+
+## 2.0.2 - 2024-06-01
+
+### Fixed
+
+- [#257](https://github.com/thatmattlove/hyperglass/issues/257): Fix issue where if `web.location_display_mode` is set to `dropdown` (automatically or otherwise), the menu would remain open but become detached from the main element because the Query Type element came into view.
+- [#253](https://github.com/thatmattlove/hyperglass/issues/253): _Actually_ fix issue where configuration values were improperly prepended with the `HYPERGLASS_APP_PATH` value.
+- [#258](https://github.com/thatmattlove/hyperglass/issues/258): Center logo alignment on small screens.
+- Fix broken license link in default credit menu.
+
+### Added
+
+- Added license to docs.
+- [#254](https://github.com/thatmattlove/hyperglass/issues/254): Users may specify their own DNS over HTTPS provider if desired.
+
 ## 2.0.1 - 2024-05-31
 
 ### Fixed

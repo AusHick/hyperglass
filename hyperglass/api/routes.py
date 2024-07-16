@@ -1,6 +1,7 @@
 """API Routes."""
 
 # Standard Library
+import json
 import time
 import typing as t
 from datetime import UTC, datetime
@@ -119,7 +120,10 @@ async def query(_state: HyperglassState, request: Request, data: Query) -> Query
         json_output = is_type(output, OutputDataModel)
 
         if json_output:
-            raw_output = output.export_dict()
+            # Export structured output as JSON string to guarantee value
+            # is serializable, then convert it back to a dict.
+            as_json = output.export_json()
+            raw_output = json.loads(as_json)
         else:
             raw_output = str(output)
 

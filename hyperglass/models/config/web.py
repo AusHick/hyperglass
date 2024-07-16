@@ -86,10 +86,8 @@ class Logo(HyperglassModel):
     light: FilePath = DEFAULT_IMAGES / "hyperglass-light.svg"
     dark: FilePath = DEFAULT_IMAGES / "hyperglass-dark.svg"
     favicon: FilePath = DEFAULT_IMAGES / "hyperglass-icon.svg"
-    width: str = Field(default="100%", pattern=PERCENTAGE_PATTERN)
-    # width: t.Optional[t.Union[int, Percentage]] = "100%"
+    width: str = Field(default="50%", pattern=PERCENTAGE_PATTERN)
     height: t.Optional[str] = Field(default=None, pattern=PERCENTAGE_PATTERN)
-    # height: t.Optional[t.Union[int, Percentage]] = None
 
 
 class LogoPublic(Logo):
@@ -186,13 +184,19 @@ class Theme(HyperglassModel):
 class DnsOverHttps(HyperglassModel):
     """Validation model for DNS over HTTPS resolution."""
 
-    name: str = Field(default="cloudflare", pattern=DOH_PROVIDERS_PATTERN)
+    name: str = "cloudflare"
     url: str = ""
 
     @model_validator(mode="before")
     def validate_dns(cls, data: "DnsOverHttps") -> t.Dict[str, str]:
         """Assign url field to model based on selected provider."""
         name = data.get("name", "cloudflare")
+        url = data.get("url", DNS_OVER_HTTPS["cloudflare"])
+        if url not in DNS_OVER_HTTPS.values():
+            return {
+                "name": "custom",
+                "url": url,
+            }
         url = DNS_OVER_HTTPS[name]
         return {
             "name": name,

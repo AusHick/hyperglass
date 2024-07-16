@@ -55,9 +55,7 @@ export function useLGQuery(
     );
     try {
       const data = await res.json();
-      console.dir(data, { depth: null });
       return data;
-      // return await res.json();
     } catch (err) {
       throw new Error(res.statusText);
     }
@@ -74,8 +72,6 @@ export function useLGQuery(
   return useQuery<QueryResponse, Response | QueryResponse | Error, QueryResponse, LGQueryKey>({
     queryKey: ['/api/query', query],
     queryFn: runQuery,
-    // Invalidate react-query's cache just shy of the configured cache timeout.
-    cacheTime: cache.timeout * 1000 * 0.95,
     // Don't refetch when window refocuses.
     refetchOnWindowFocus: false,
     // Don't automatically refetch query data (queries should be on-off).
